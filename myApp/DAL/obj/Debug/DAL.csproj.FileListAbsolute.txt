@@ -1,0 +1,6 @@
+C:\Users\hania.CONSIST-SYS\Desktop\myApp\DAL\bin\Debug\DAL.dll
+C:\Users\hania.CONSIST-SYS\Desktop\myApp\DAL\bin\Debug\DAL.pdb
+C:\Users\hania.CONSIST-SYS\Desktop\myApp\DAL\obj\Debug\DAL.csproj.AssemblyReference.cache
+C:\Users\hania.CONSIST-SYS\Desktop\myApp\DAL\obj\Debug\DAL.csproj.CoreCompileInputs.cache
+C:\Users\hania.CONSIST-SYS\Desktop\myApp\DAL\obj\Debug\DAL.dll
+C:\Users\hania.CONSIST-SYS\Desktop\myApp\DAL\obj\Debug\DAL.pdb
