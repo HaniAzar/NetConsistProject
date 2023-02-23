@@ -30,40 +30,67 @@ namespace myApp.Controllers
             {   'id': 7,   'name': 'adi',   'parent': 5  } ]";
 
 
-        public string RecursiveJson(string jsontext)
+        public string funcConvert(string jsonTxt)
         {
-            try
+            List<Parent> listJson = JsonConvert.DeserializeObject<List<Parent>>(jsonTxt);
+            Console.WriteLine(Display(listJson, null));
+            string newJson = JsonConvert.SerializeObject(Display(listJson, null));
+            return newJson;
+        }
+        public List<Parent> Display(List<Parent> arr, int? parentId)
+        {
+            List<Parent> newArr = new List<Parent>();
+
+            foreach (var item in arr.Where(x => x.parentID == parentId))
             {
-                // המרה
-                List<Parent> listJson = JsonConvert.DeserializeObject<List<Parent>>(jsontext);
-                //האבא הראשי שהוא NULL
-                List<Parent> result = listJson.Where(p => p.parentID == null).ToList();
-                // מחזירה את הילדים של האבא הראשי וגם מחזירה את הכל הילדים של הילדים
-                foreach (var r in result)
+                Parent child = new Parent()
                 {
-                    r.Children = GetChildsForPrnt(r.ID, listJson);
-                }
-                // המרה בחזרה לJSON
-                return JsonConvert.SerializeObject(result);
+                    ID = item.ID,
+                    Name = item.Name,
+                    Children = Display(arr, item.ID)
+                };
+                newArr.Add(child);
             }
-            catch (Exception)
-            {
-                EventLog.WriteEntry("Error", "Error Message", EventLogEntryType.Error);//כתיבה ליומן 
-                return "Error.";
-            }
+            return newArr;
         }
-        /// <summary>
-        /// מקבלת רשימה ומזהה של אבא ועוברת על הרשימה ומכניסה לאבא את כל הילדים שלו
-        /// </summary>
-        public List<Parent> GetChildsForPrnt(int parentId, List<Parent> list)
-        {
-            var children = list.Where(x => x.parentID == parentId).ToList();
-            foreach (var c in children)
-            {
-                c.Children = GetChildsForPrnt(c.ID, list);
-            }
-            return children;
-        }
+
+
+
+
+        //public string RecursiveJson(string jsontext)
+        //{
+        //    try
+        //    {
+        //        // המרה
+        //        List<Parent> listJson = JsonConvert.DeserializeObject<List<Parent>>(jsontext);
+        //        //האבא הראשי שהוא NULL
+        //        List<Parent> result = listJson.Where(p => p.parentID == null).ToList();
+        //        // מחזירה את הילדים של האבא הראשי וגם מחזירה את הכל הילדים של הילדים
+        //        foreach (var r in result)
+        //        {
+        //            r.Children = GetChildsForPrnt(r.ID, listJson);
+        //        }
+        //        // המרה בחזרה לJSON
+        //        return JsonConvert.SerializeObject(result);
+        //    }
+        //    catch (Exception)
+        //    {
+        //        EventLog.WriteEntry("Error", "Error Message", EventLogEntryType.Error);//כתיבה ליומן 
+        //        return "Error.";
+        //    }
+        //}
+        ///// <summary>
+        ///// מקבלת רשימה ומזהה של אבא ועוברת על הרשימה ומכניסה לאבא את כל הילדים שלו
+        ///// </summary>
+        //public List<Parent> GetChildsForPrnt(int parentId, List<Parent> list)
+        //{
+        //    var children = list.Where(x => x.parentID == parentId).ToList();
+        //    foreach (var c in children)
+        //    {
+        //        c.Children = GetChildsForPrnt(c.ID, list);
+        //    }
+        //    return children;
+        //}
 
 
 

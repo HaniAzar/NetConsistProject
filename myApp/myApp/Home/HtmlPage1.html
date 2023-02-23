@@ -6,5 +6,34 @@
 </head>
 <body>
     <h3>start my app</h3>
+    <script>
+
+        var jsonText = [
+            { 'id': 1, 'name': 'david', 'parent': null },
+            { 'id': 2, 'name': 'tom', 'parent': 1 },
+            { 'id': 3, 'name': 'tami', 'parent': 1 },
+            { 'id': 4, 'name': 'gal', 'parent': 1 },
+            { 'id': 5, 'name': 'uri', 'parent': 4 },
+            { 'id': 6, 'name': 'uri', 'parent': 3 },
+            { 'id': 7, 'name': 'adi', 'parent': 5 }];
+
+
+        function display(arr, parentId) {
+            debugger
+            let newArr = [];
+            for (let i = 0; i < arr.length; i++) {
+                if (arr[i].parent == parentId) {
+                    let item = {
+                        id: arr[i].id,
+                        name: arr[i].name,
+                        childs: display(arr, arr[i].id)
+                    }
+                    newArr.push(item)
+                }
+            }
+            return newArr
+        }
+        console.log(display(jsonText, null));
+    </script>
 </body>
 </html>
